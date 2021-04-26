@@ -16,6 +16,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(993, 575)
         MainWindow.setMinimumSize(QtCore.QSize(0, 0))
+        MainWindow.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setMinimumSize(QtCore.QSize(800, 600))
         self.centralwidget.setMaximumSize(QtCore.QSize(1920, 1080))
@@ -32,7 +33,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addItem(spacerItem)
         self.bar = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setPointSize(50)
+        font.setFamily("Z003 [urw]")
+        font.setPointSize(70)
         self.bar.setFont(font)
         self.bar.setScaledContents(True)
         self.bar.setObjectName("bar")
@@ -148,7 +150,7 @@ class Ui_MainWindow(object):
 
     def searchbutton_clicked(self):
         Dialog = QtWidgets.QDialog()
-        ui = Ui_Dialog(self.searchbar.text())
+        ui = Ui_Dialog(self.searchbar.text(), Dialog)
         ui.setupUi(Dialog)
         Dialog.show()
 
@@ -159,7 +161,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.bar.setText(_translate("MainWindow", "Precios"))
+        self.bar.setText(_translate("MainWindow", "Lenceria Sophia"))
         self.searchbutton.setText(_translate("MainWindow", "Buscar"))
         self.stockbutton.setText(_translate("MainWindow", "Ver Stock"))
         self.modify.setText(_translate("MainWindow", "Modificar Precios"))
@@ -175,19 +177,34 @@ if __name__ == "__main__":
 
 
 
+#from PyQt5.QtWidgets import QTableWidgetItem
+#from db_handler import *
 
 
-#    def __init__(self, value):
-#        print(value)
-#       self.send_data_to_table()
-#    def __init__(self, value):
+#    def __init__(self, value, Dialog):
 #        self.value = value
-#        print(value.isdecimal())
-#    
+#        self.Dialog = Dialog
+#        self.send_data_to_table()
+
+
+#        self.Cerrar.clicked.connect(self.reject)
+#
+#    def reject(self):
+#        self.Dialog.close()
+
+#        self.tableWidget.setStyleSheet("background: url(./imagenes/sophia.png);\n"
+#"background-repeat: no-repeat;\n"
+#"background-position: center")
+
 #    def send_data_to_table(self):
 #        product = show_product(self.value)
 #        print(product)
+#        self.tableWidget.setRowCount(0)
+#        for row_number, row_data, in enumerate(product):
+#            print(row_number)
+#            self.tableWidget.insertRow(row_number)
+#            for column_number, data in enumerate(row_data):
+#                self.tableWidget.setItem(row_number,column_number,
+#                    QTableWidgetItem(str(data)))
 
-        #self.tableWidget.setRowCount(0)
-        #self.tableWidget.insertRow(1)
-        #self.tableWidget.setItem(1,1, QtWidgets.QTableWidgetItem(str(product)))
+#

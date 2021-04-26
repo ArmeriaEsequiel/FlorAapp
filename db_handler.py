@@ -40,8 +40,8 @@ def show_product(input_value):
 	if input_value.isdigit():
 		conn.execute("SELECT name,price FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
 	else:
-		conn.execute("SELECT name,price FROM stock WHERE name = :input_value",
-							 {'input_value' : input_value})
+		#input_value = '%'+input_value+'%'
+		conn.execute("SELECT name,price FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
 	return(conn.fetchall())
 
 
@@ -52,7 +52,22 @@ def show_product(input_value):
 #create_db()
 #add_prod('Medias',10,20,500,8000)
 #add_prod('Calzones',10,50,300,9000)
-#add_prod('Medias Azules',10,20,500,8000)
+#add_prod('Medias Rojas',10,20,500,7001)
+##add_prod('Medias Veres',10,20,500,7002)
+#add_prod('Medias Rosas',10,20,500,7003)
+#add_prod('Medias Grises',10,20,500,7004)
+#add_prod('Medias Negras',10,20,500,7005)
+#add_prod('Medias ASd',10,20,500,7006)
+#add_prod('Medias ddd',10,20,500,7007)
+#add_prod('Medias aaa',10,20,500,7008)
+#add_prod('Medias sss',10,20,500,7009)
+#add_prod('Medias ggg',10,20,500,7010)
+##add_prod('Medias hhh',10,20,500,7020)
+#add_prod('Medias jjj',10,20,500,7027)
+
+
+
+
 #result =show_product('8000')
 #print(result)
 #def show_product(input):

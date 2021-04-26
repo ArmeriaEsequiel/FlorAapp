@@ -9,17 +9,17 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem, QHeaderView
+from PyQt5.QtCore import Qt
 from db_handler import *
 
-
 class Ui_Dialog(object):
-    def __init__(self, value):
+    def __init__(self, value, Dialog):
         self.value = value
-
+        self.Dialog = Dialog
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(833, 592)
+        Dialog.resize(1220, 592)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -34,11 +34,22 @@ class Ui_Dialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tableWidget.sizePolicy().hasHeightForWidth())
         self.tableWidget.setSizePolicy(sizePolicy)
-        self.tableWidget.setMinimumSize(QtCore.QSize(0, 90))
+        self.tableWidget.setMinimumSize(QtCore.QSize(1024, 720))
         self.tableWidget.setMaximumSize(QtCore.QSize(1920, 1080))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.tableWidget.setStyleSheet("background-image: url(./imagenes/sophia_trans.png);\n"
+"background-repeat: no-repeat;\n"
+"background-position: center;\n"
+"background-attachment: fixed")
+        self.tableWidget.horizontalHeader().setStyleSheet("background-color: rgb(255,255,255)")
+        self.tableWidget.verticalHeader().setStyleSheet("background-image: url(./imagenes/headerv.png)")
+        self.tableWidget.setFont(font)
         self.tableWidget.setFocusPolicy(QtCore.Qt.WheelFocus)
         self.tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.tableWidget.setWordWrap(True)
+        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setTextElideMode(QtCore.Qt.ElideMiddle)
+        self.tableWidget.setWordWrap(False)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(2)
         self.tableWidget.setRowCount(0)
@@ -52,7 +63,7 @@ class Ui_Dialog(object):
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableWidget.setHorizontalHeaderItem(1, item)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(600)
-        self.tableWidget.horizontalHeader().setStretchLastSection(False)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
         self.verticalLayout.addWidget(self.tableWidget)
         self.Cerrar = QtWidgets.QPushButton(Dialog)
         self.Cerrar.setMinimumSize(QtCore.QSize(0, 50))
@@ -63,22 +74,20 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         self.send_data_to_table()
 
-
         self.Cerrar.clicked.connect(self.reject)
 
-#    def cerrar_clicked(self):
-
+    def reject(self):
+        self.Dialog.close()
 
     def send_data_to_table(self):
         product = show_product(self.value)
-        print(product)
         self.tableWidget.setRowCount(0)
         for row_number, row_data, in enumerate(product):
-            print(row_number)
             self.tableWidget.insertRow(row_number)
             for column_number, data in enumerate(row_data):
-                print(column_number)
-                self.tableWidget.setItem(row_number,column_number,QTableWidgetItem(str(data)))
+                item = QTableWidgetItem(str(data))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget.setItem(row_number,column_number,item)
 
 
     def retranslateUi(self, Dialog):
