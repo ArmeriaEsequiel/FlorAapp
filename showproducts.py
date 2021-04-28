@@ -80,7 +80,7 @@ class Ui_Dialog(object):
         self.Dialog.close()
 
     def send_data_to_table(self):
-        product = show_product(self.value)
+        product = show_product(self.value,0)
         self.tableWidget.setRowCount(0)
         for row_number, row_data, in enumerate(product):
             self.tableWidget.insertRow(row_number)

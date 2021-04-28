@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from showproducts import Ui_Dialog
+from stockwindow import Ui_StockWindow
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -21,7 +22,8 @@ class Ui_MainWindow(object):
         self.centralwidget.setMinimumSize(QtCore.QSize(800, 600))
         self.centralwidget.setMaximumSize(QtCore.QSize(1920, 1080))
         self.centralwidget.setAutoFillBackground(False)
-        self.centralwidget.setStyleSheet("background-color: rgb(250, 128, 114)")
+        #self.centralwidget.setStyleSheet("background-color: rgb(250, 128, 114)")
+        self.centralwidget.setStyleSheet("background-color: rgb(251, 193, 193)")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -148,6 +150,9 @@ class Ui_MainWindow(object):
         # Activation for searchbutton
         self.searchbutton.clicked.connect(self.searchbutton_clicked)
 
+        # Activation for stockbutton
+        self.stockbutton.clicked.connect(self.stockbutton_clicked)
+
     def searchbutton_clicked(self):
         Dialog = QtWidgets.QDialog()
         ui = Ui_Dialog(self.searchbar.text(), Dialog)
@@ -157,6 +162,13 @@ class Ui_MainWindow(object):
         #MainWindow.hide()
         Dialog.exec_()
         #MainWindow.show()
+
+    def stockbutton_clicked(self):
+        self.StockWindow = QtWidgets.QMainWindow()
+        self.ui = Ui_StockWindow()
+        self.ui.setupUi(self.StockWindow)
+        self.StockWindow.show()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

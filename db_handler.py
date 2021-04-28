@@ -34,18 +34,25 @@ def add_prod(name, shop_quantity, stored_quantity, price, barcode):
 
 
 
-def show_product(input_value):
+def show_product(input_value, method):
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
 	if input_value.isdigit():
-		conn.execute("SELECT name,price FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
+		if method == 1:
+			conn.execute("SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
+		else:	
+			conn.execute("SELECT name,price FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
 	else:
+		if method == 1:
+			conn.execute("SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
+		else:
 		#input_value = '%'+input_value+'%'
-		conn.execute("SELECT name,price FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
+			conn.execute("SELECT name,price FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
 	return(conn.fetchall())
 
 
-
+def increase_stock(input_value,product_list):
+	pass
 
 
 
