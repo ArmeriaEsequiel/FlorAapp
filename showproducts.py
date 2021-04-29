@@ -34,8 +34,8 @@ class Ui_Dialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tableWidget.sizePolicy().hasHeightForWidth())
         self.tableWidget.setSizePolicy(sizePolicy)
-        self.tableWidget.setMinimumSize(QtCore.QSize(1024, 720))
-        self.tableWidget.setMaximumSize(QtCore.QSize(1920, 1080))
+        self.tableWidget.setMinimumSize(QtCore.QSize(1024, 600))
+        #self.tableWidget.setMaximumSize(QtCore.QSize(1920, 1080))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.tableWidget.setStyleSheet("background-image: url(./imagenes/sophia_trans.png);\n"

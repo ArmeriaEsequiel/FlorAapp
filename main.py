@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from showproducts import Ui_Dialog
-from stockwindow import Ui_StockWindow
+from stockwindow2 import Ui_StockWindow
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):

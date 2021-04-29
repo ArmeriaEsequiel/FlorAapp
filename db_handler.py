@@ -3,16 +3,16 @@ import sqlite3
 
 
 def create_db():
-	conn = sqlite3.connect('stock.db')
-	c = conn.cursor()
-	c.execute("""CREATE TABLE stock (
+	connection = sqlite3.connect('stock.db')
+	conn = conn.cursor()
+	conn.execute("""CREATE TABLE stock (
             name text,
             shop_quantity real,
             stored_quantity real,
             price real,
             barcode real
             ) """)
-	conn.commit()
+	connection.commit()
 
 
 
@@ -51,9 +51,31 @@ def show_product(input_value, method):
 	return(conn.fetchall())
 
 
-def increase_stock(input_value,product_list):
-	pass
+def increase_stock(input_value,barcode):
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	#print(input_value,barcode)
+	conn.execute("UPDATE stock SET stored_quantity = ? WHERE barcode = ?",
+					(input_value, barcode,))
+	connection.commit()
 
+
+def change_stock(input_value,barcode,method):
+	#print("Valores change_stock {}, {}, {}".format(input_value,barcode,int(method)))
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	#print("METHOD ES {}".format(method))
+	if method == 1:
+		#print("Valores en update shop {}, {}".format(input_value,barcode))
+		conn.execute("UPDATE stock SET shop_quantity = ? WHERE barcode = ?",
+		[input_value, barcode])
+	else:
+		print("Valores en update store {}, {}".format(input_value,barcode))
+		conn.execute("UPDATE stock SET stored_quantity = ? WHERE barcode = ?",
+					[input_value,barcode])
+	connection.commit()
+	#result =show_product('9000', 1)
+	#print(result)
 
 
 #create_db()
@@ -75,7 +97,7 @@ def increase_stock(input_value,product_list):
 
 
 
-#result =show_product('8000')
+#result =show_product('9000', 1)
 #print(result)
 #def show_product(input):
 #	if input
