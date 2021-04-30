@@ -33,7 +33,8 @@ def add_prod(name, shop_quantity, stored_quantity, price, barcode):
 		return('Ya existe el producto')
 
 
-
+#Method = 0, for getting only name and price.
+#Method = 1, for getiing all row values
 def show_product(input_value, method):
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
@@ -50,6 +51,20 @@ def show_product(input_value, method):
 			conn.execute("SELECT name,price FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
 	return(conn.fetchall())
 
+def get_full_product(input_value):
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	conn.execute("SELECT name,price,shop_quantity,stored_quantity,barcode FROM stock WHERE barcode = :barcode",
+				 {'barcode' : input_value})
+	return(conn.fetchall())
+
+def update_product(name, price, stored_quantity, shop_quantity, barcode):
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	print(price)
+	conn.execute("UPDATE stock SET name = ?, price = ?, stored_quantity = ?, shop_quantity = ?  WHERE barcode = ?",
+					[name,price,stored_quantity,shop_quantity, barcode])
+	connection.commit()
 
 def increase_stock(input_value,barcode):
 	connection = sqlite3.connect('stock.db')
@@ -70,7 +85,7 @@ def change_stock(input_value,barcode,method):
 		conn.execute("UPDATE stock SET shop_quantity = ? WHERE barcode = ?",
 		[input_value, barcode])
 	else:
-		print("Valores en update store {}, {}".format(input_value,barcode))
+		#print("Valores en update store {}, {}".format(input_value,barcode))
 		conn.execute("UPDATE stock SET stored_quantity = ? WHERE barcode = ?",
 					[input_value,barcode])
 	connection.commit()
@@ -90,7 +105,7 @@ def change_stock(input_value,barcode,method):
 #add_prod('Medias ddd',10,20,500,7007)
 #add_prod('Medias aaa',10,20,500,7008)
 #add_prod('Medias sss',10,20,500,7009)
-#add_prod('Medias ggg',10,20,500,7010)
+#add_prod('Medias gggggggggggggggggggggggg',10,20,500,7016)
 ##add_prod('Medias hhh',10,20,500,7020)
 #add_prod('Medias jjj',10,20,500,7027)
 

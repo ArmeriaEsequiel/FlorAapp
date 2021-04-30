@@ -9,8 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
 from showproducts import Ui_Dialog
 from stockwindow2 import Ui_StockWindow
+from modifyproducts2 import Ui_ModifyWindow
+from PyQt5.QtWidgets import QMainWindow
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -153,6 +157,10 @@ class Ui_MainWindow(object):
         # Activation for stockbutton
         self.stockbutton.clicked.connect(self.stockbutton_clicked)
 
+        # Activation for modify
+        self.modify.clicked.connect(self.modifybutton_clicked)
+
+
     def searchbutton_clicked(self):
         Dialog = QtWidgets.QDialog()
         ui = Ui_Dialog(self.searchbar.text(), Dialog)
@@ -169,6 +177,11 @@ class Ui_MainWindow(object):
         self.ui.setupUi(self.StockWindow)
         self.StockWindow.show()
 
+    def modifybutton_clicked(self):
+        self.ModifyWindow = QtWidgets.QMainWindow()
+        self.ui = Ui_ModifyWindow()
+        self.ui.setupUi(self.ModifyWindow)
+        self.ModifyWindow.show()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -178,12 +191,32 @@ class Ui_MainWindow(object):
         self.stockbutton.setText(_translate("MainWindow", "Ver Stock"))
         self.modify.setText(_translate("MainWindow", "Modificar Precios"))
 
+
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, obj=None, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+
+    def closeEvent(self, event):
+        # Ask for confirmation
+        answer = QtWidgets.QMessageBox.question(self,
+        "Salir..",
+        "Esta seguro que quiere salir?\nSe perdera la informacion no guardada.",
+        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if answer == QtWidgets.QMessageBox.Yes:
+            app.quit()
+        else:
+            event.ignore()
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
+#    MainWindow = QtWidgets.QMainWindow()
+#    MainWindow.setQuitOnLastWindowClosed(True)
+    MainWindow = MainWindow()
+#    ui = Ui_MainWindow()
+#    ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
 

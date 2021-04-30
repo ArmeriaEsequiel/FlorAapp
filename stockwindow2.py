@@ -26,7 +26,7 @@ class Ui_StockWindow(object):
     def setupUi(self, StockWindow):
         self.StockWindow = StockWindow
         StockWindow.setObjectName("StockWindow")
-        StockWindow.resize(1300, 720)
+        StockWindow.resize(1024, 720)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -64,6 +64,11 @@ class Ui_StockWindow(object):
         self.tableWidget.horizontalHeader().setStyleSheet("background-color: rgb(255,255,255)")
         self.tableWidget.verticalHeader().setStyleSheet("background-image: url(./imagenes/headerv.png)")
         self.tableWidget.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
+        #self.tableWidget.horizontalHeader().setSectionResizeMode(1,QHeaderView.Stretch)
+        #self.tableWidget.horizontalHeader().setSectionResizeMode(2,QHeaderView.Stretch)
+        #self.tableWidget.horizontalHeader().setSectionResizeMode(3,QHeaderView.Stretch)
+        #self.tableWidget.horizontalHeader().setSectionResizeMode(4,QHeaderView.Stretch)
+#        self.tableWidget.resizeColumnsToContents()
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setPointSize(13)
@@ -387,7 +392,7 @@ class Ui_StockWindow(object):
             #check_box_item.setTextAlignment(Qt.AlignLeft)
             # Add CheckBox in the last column in every row
             self.tableWidget.setItem(row_number,4,check_box_item)
-
+        self.tableWidget.resizeColumnsToContents()
 
     def retranslateUi(self, StockWindow):
         _translate = QtCore.QCoreApplication.translate
