@@ -28,9 +28,9 @@ def add_prod(name, shop_quantity, stored_quantity, price, barcode):
 			conn.execute("INSERT INTO stock VALUES (:name, :shop_quantity, :stored_quantity, :price, :barcode)",
 				{'name' :name, 'shop_quantity' : shop_quantity, 'stored_quantity' : stored_quantity,
 				'price' : price, 'barcode' : barcode})
-		return('El producto se guardo correctamente')
+		return(1)
 	else:
-		return('Ya existe el producto')
+		return(0)
 
 
 #Method = 0, for getting only name and price.
@@ -50,6 +50,18 @@ def show_product(input_value, method):
 		#input_value = '%'+input_value+'%'
 			conn.execute("SELECT name,price FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
 	return(conn.fetchall())
+
+
+def show_products_delete(input_value):
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	if input_value.isdigit():
+		conn.execute("SELECT name,barcode FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
+	else:
+		conn.execute("SELECT name,barcode FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
+	return(conn.fetchall())
+
+
 
 def get_full_product(input_value):
 	connection = sqlite3.connect('stock.db')
@@ -91,6 +103,14 @@ def change_stock(input_value,barcode,method):
 	connection.commit()
 	#result =show_product('9000', 1)
 	#print(result)
+
+def delete_product(input_value):
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	conn.execute("DELETE FROM stock WHERE barcode = :barcode",{'barcode' : input_value})
+	connection.commit()
+
+
 
 
 #create_db()
