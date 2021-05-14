@@ -2,10 +2,10 @@ import sqlite3
 
 
 
-def create_db():
+def create_stock_db():
 	connection = sqlite3.connect('stock.db')
-	conn = conn.cursor()
-	conn.execute("""CREATE TABLE stock (
+	conn = connection.cursor()
+	conn.execute("""CREATE TABLE IF NOT EXISTS stock (
             name text,
             shop_quantity real,
             stored_quantity real,
@@ -15,14 +15,12 @@ def create_db():
 	connection.commit()
 
 
-
 def add_prod(name, shop_quantity, stored_quantity, price, barcode):
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
 	with connection:
 		conn.execute("SELECT name FROM stock WHERE barcode = :barcode", {'barcode' : barcode})
 		check  = conn.fetchone()
-		print(check)
 	if check is None:
 		with connection:
 			conn.execute("INSERT INTO stock VALUES (:name, :shop_quantity, :stored_quantity, :price, :barcode)",
@@ -42,13 +40,13 @@ def show_product(input_value, method):
 		if method == 1:
 			conn.execute("SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
 		else:	
-			conn.execute("SELECT name,price FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
+			conn.execute("SELECT name,price,barcode FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
 	else:
 		if method == 1:
 			conn.execute("SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
 		else:
 		#input_value = '%'+input_value+'%'
-			conn.execute("SELECT name,price FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
+			conn.execute("SELECT name,price,barcode FROM stock WHERE name LIKE ?",('%'+input_value+'%',))
 	return(conn.fetchall())
 
 
@@ -63,6 +61,18 @@ def show_products_delete(input_value):
 
 
 
+def get_products_from_list(input_value):
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	paramlist = '?'
+	for i in range(len(input_value)-1):
+		paramlist = paramlist + ', ?'
+	sql = "SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE barcode IN ("+paramlist+")"
+	for item in input_value:
+		conn.execute(sql, input_value)
+	return(conn.fetchall())
+
+
 def get_full_product(input_value):
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
@@ -73,10 +83,16 @@ def get_full_product(input_value):
 def update_product(name, price, stored_quantity, shop_quantity, barcode):
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
-	print(price)
+	with connection:
+		conn.execute("SELECT name FROM stock WHERE barcode = :barcode", {'barcode' : barcode})
+		check  = conn.fetchone()
+#		print(check)
+	if check is None:
+		return(0)
 	conn.execute("UPDATE stock SET name = ?, price = ?, stored_quantity = ?, shop_quantity = ?  WHERE barcode = ?",
 					[name,price,stored_quantity,shop_quantity, barcode])
 	connection.commit()
+	return(1)
 
 def increase_stock(input_value,barcode):
 	connection = sqlite3.connect('stock.db')
@@ -91,48 +107,107 @@ def change_stock(input_value,barcode,method):
 	#print("Valores change_stock {}, {}, {}".format(input_value,barcode,int(method)))
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
+#	result =get_full_product('222')
+#	print(result)
 	#print("METHOD ES {}".format(method))
-	if method == 1:
-		#print("Valores en update shop {}, {}".format(input_value,barcode))
+	if method == 0:
+#		print("METHOD ES = {}".format(int(method)))
+#		print("ENTRE EN SHOP")
+#		print("input_value es {}".format(input_value))
+#		print("Valores en update shop {}, {}".format(input_value,barcode))
 		conn.execute("UPDATE stock SET shop_quantity = ? WHERE barcode = ?",
 		[input_value, barcode])
 	else:
-		#print("Valores en update store {}, {}".format(input_value,barcode))
+#		print("ENTRE EN STORED")
+#		print("input_value es {}".format(input_value))
+#		print("Valores en update store {}, {}".format(input_value,barcode))
 		conn.execute("UPDATE stock SET stored_quantity = ? WHERE barcode = ?",
 					[input_value,barcode])
 	connection.commit()
-	#result =show_product('9000', 1)
-	#print(result)
+#	result =get_full_product('222')
+#	print(result)
 
 def delete_product(input_value):
 	connection = sqlite3.connect('stock.db')
 	conn = connection.cursor()
+	with connection:
+		conn.execute("SELECT name FROM stock WHERE barcode = :barcode", {'barcode' : input_value})
+		check  = conn.fetchone()
+		print(check)
+	if check is None:
+		return(0)
 	conn.execute("DELETE FROM stock WHERE barcode = :barcode",{'barcode' : input_value})
 	connection.commit()
+	return(1)
+
+
+def get_storage_out_of_stock():
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	conn.execute("SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE stored_quantity = 0")
+	return(conn.fetchall())
+
+
+def get_shop_out_of_stock():
+	connection = sqlite3.connect('stock.db')
+	conn = connection.cursor()
+	conn.execute("SELECT name,shop_quantity,stored_quantity,barcode FROM stock WHERE shop_quantity = 0")
+	return(conn.fetchall())
+
+#--------------------------------------------------------------------------------------------------------
+
+#SALES HANDLERS
+
+def create_sales_db():
+	connection = sqlite3.connect('sales.db')
+	conn = connection.cursor()
+	conn.execute("""CREATE TABLE IF NOT EXISTS sales (
+            name text,
+            quantity real,
+            barcode real,
+            status text,
+            record_time DATE DEFAULT CURRENT_DATE
+            ) """)
+	connection.commit()
+
+def test_db():
+	connection = sqlite3.connect('test.db')
+	conn = connection.cursor()
+	conn.execute(""" CREATE TABLE test(
+		book_id INTEGER PRIMARY KEY,
+		Book_name TEXT NOT NULL,
+		price INTEGER DEFAULT 100
+		)""")
 
 
 
-
-#create_db()
-#add_prod('Medias',10,20,500,8000)
-#add_prod('Calzones',10,50,300,9000)
-#add_prod('Medias Rojas',10,20,500,7001)
-##add_prod('Medias Veres',10,20,500,7002)
-#add_prod('Medias Rosas',10,20,500,7003)
-#add_prod('Medias Grises',10,20,500,7004)
-#add_prod('Medias Negras',10,20,500,7005)
-#add_prod('Medias ASd',10,20,500,7006)
-#add_prod('Medias ddd',10,20,500,7007)
-#add_prod('Medias aaa',10,20,500,7008)
-#add_prod('Medias sss',10,20,500,7009)
-#add_prod('Medias gggggggggggggggggggggggg',10,20,500,7016)
-##add_prod('Medias hhh',10,20,500,7020)
-#add_prod('Medias jjj',10,20,500,7027)
+def add_sale(name,quantity,barcode,status):
+	connection = sqlite3.connect('sales.db')
+	conn = connection.cursor()
+	with connection:
+		conn.execute("INSERT INTO sales (name,quantity,barcode,status)VALUES (?, ?, ?, ?)",
+			[name, quantity, barcode, status])
 
 
+def get_sales(from_time, to_time):
+	connection = sqlite3.connect('sales.db')
+	conn = connection.cursor()
+	with connection:
+		conn.execute("SELECT * FROM sales")
+		conn.execute("SELECT * FROM sales WHERE record_time BETWEEN date(?) and date(?)",
+			[from_time, to_time])
+	return(conn.fetchall())
 
+def add_test():
+	connection = sqlite3.connect('test.db')
+	conn = connection.cursor()
+	with connection:
+		conn.execute("INSERT INTO test (book_id,Book_name) VALUES(1,'RAMAYANA')")
 
-#result =show_product('9000', 1)
-#print(result)
-#def show_product(input):
-#	if input
+def get_test():
+	connection = sqlite3.connect('test.db')
+	conn = connection.cursor()
+	with connection:
+		conn.execute("SELECT * FROM test")	
+	return(conn.fetchall())
+

@@ -9,21 +9,16 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import *
-from productshow import Ui_Productshow
-from stockwindow import Ui_StockWindow
-from modifyproducts import Ui_ModifyWindow
-from PyQt5.QtWidgets import QMainWindow
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1006, 600)
-        MainWindow.setMinimumSize(QtCore.QSize(0, 0))
-        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255)")
+        MainWindow.setMinimumSize(QtCore.QSize(0, 70))
+        MainWindow.setStyleSheet("background-color: rgb(255,255, 255)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setMinimumSize(QtCore.QSize(800, 600))
+        self.centralwidget.setMinimumSize(QtCore.QSize(1024, 600))
         self.centralwidget.setMaximumSize(QtCore.QSize(1920, 1080))
         self.centralwidget.setAutoFillBackground(False)
         self.centralwidget.setStyleSheet("background-color: rgba(251, 193, 193, 158)")
@@ -34,16 +29,16 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        spacerItem = QtWidgets.QSpacerItem(245, 17, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(245, 0, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem)
         self.bar = QtWidgets.QLabel(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(10)
         sizePolicy.setVerticalStretch(10)
         sizePolicy.setHeightForWidth(self.bar.sizePolicy().hasHeightForWidth())
         self.bar.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("Z003 [urw]")
+        font.setFamily("Z003")
         font.setPointSize(61)
         font.setBold(False)
         font.setItalic(False)
@@ -60,14 +55,14 @@ class Ui_MainWindow(object):
         self.bar.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.bar.setObjectName("bar")
         self.horizontalLayout_4.addWidget(self.bar)
-        spacerItem1 = QtWidgets.QSpacerItem(245, 17, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        spacerItem1 = QtWidgets.QSpacerItem(245, 0, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem1)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.horizontalLayout_5.addItem(spacerItem2)
-        spacerItem3 = QtWidgets.QSpacerItem(17, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Ignored)
+        spacerItem3 = QtWidgets.QSpacerItem(17, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.horizontalLayout_5.addItem(spacerItem3)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
@@ -150,9 +145,9 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem6 = QtWidgets.QSpacerItem(17, 83, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem6 = QtWidgets.QSpacerItem(17, 44, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.horizontalLayout_2.addItem(spacerItem6)
-        spacerItem7 = QtWidgets.QSpacerItem(17, 83, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem7 = QtWidgets.QSpacerItem(17, 44, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.horizontalLayout_2.addItem(spacerItem7)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -160,6 +155,11 @@ class Ui_MainWindow(object):
         spacerItem8 = QtWidgets.QSpacerItem(86, 75, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem8)
         self.stockbutton = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.stockbutton.sizePolicy().hasHeightForWidth())
+        self.stockbutton.setSizePolicy(sizePolicy)
         self.stockbutton.setMinimumSize(QtCore.QSize(0, 70))
         font = QtGui.QFont()
         font.setFamily("Chilanka")
@@ -177,6 +177,11 @@ class Ui_MainWindow(object):
         spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem9)
         self.modify = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.modify.sizePolicy().hasHeightForWidth())
+        self.modify.setSizePolicy(sizePolicy)
         self.modify.setMinimumSize(QtCore.QSize(0, 70))
         font = QtGui.QFont()
         font.setFamily("Chilanka")
@@ -191,14 +196,34 @@ class Ui_MainWindow(object):
         spacerItem10 = QtWidgets.QSpacerItem(85, 75, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem10)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        spacerItem11 = QtWidgets.QSpacerItem(5, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.verticalLayout.addItem(spacerItem11)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        spacerItem11 = QtWidgets.QSpacerItem(14, 16, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.horizontalLayout_6.addItem(spacerItem11)
-        spacerItem12 = QtWidgets.QSpacerItem(14, 16, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem12 = QtWidgets.QSpacerItem(160, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem12)
-        self.verticalLayout.addLayout(self.horizontalLayout_6)
-        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.salesbutton = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.salesbutton.sizePolicy().hasHeightForWidth())
+        self.salesbutton.setSizePolicy(sizePolicy)
+        self.salesbutton.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setFamily("Chilanka")
+        font.setPointSize(21)
+        font.setBold(True)
+        font.setWeight(75)
+        self.salesbutton.setFont(font)
+        self.salesbutton.setStyleSheet("background-color: rgb(173, 127, 168);")
+        self.salesbutton.setObjectName("salesbutton")
+        self.horizontalLayout_6.addWidget(self.salesbutton)
+        spacerItem13 = QtWidgets.QSpacerItem(160, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem13)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_6)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 71, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.verticalLayout_2.addItem(spacerItem14)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -206,73 +231,22 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", " "))
         self.bar.setText(_translate("MainWindow", "Lenceria Sophia"))
         self.searchbutton.setText(_translate("MainWindow", "Buscar"))
         self.stockbutton.setText(_translate("MainWindow", "Ver Stock"))
         self.modify.setText(_translate("MainWindow", "Modificar Precios"))
-
-       # Activation for searchbutton
-        self.searchbutton.clicked.connect(self.searchbutton_clicked)
-
-        # Activation for stockbutton
-        self.stockbutton.clicked.connect(self.stockbutton_clicked)
-
-        # Activation for modify
-        self.modify.clicked.connect(self.modifybutton_clicked)
-
-
-    def searchbutton_clicked(self):
-        self.Productshow = QtWidgets.QMainWindow()
-        self.ui = Ui_Productshow(self.searchbar.text())
-        self.ui.setupUi(self.Productshow)
-        self.Productshow.show()
-        self.searchbar.clear()
-        #Dialog = QtWidgets.QDialog()
-        #ui = Ui_Dialog(self.searchbar.text(), Dialog)
-        #ui.setupUi(Dialog)
-        #Dialog.show()
-
-        #MainWindow.hide()
-        #Dialog.exec_()
-        #MainWindow.show()
-
-    def stockbutton_clicked(self):
-        self.StockWindow = QtWidgets.QMainWindow()
-        self.ui = Ui_StockWindow()
-        self.ui.setupUi(self.StockWindow)
-        self.StockWindow.show()
-
-    def modifybutton_clicked(self):
-        self.ModifyWindow = QtWidgets.QMainWindow()
-        self.ui = Ui_ModifyWindow()
-        self.ui.setupUi(self.ModifyWindow)
-        self.ModifyWindow.show()
-
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, *args, obj=None, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
-        self.setupUi(self)
-
-    def closeEvent(self, event):
-        # Ask for confirmation
-        answer = QtWidgets.QMessageBox.question(self,
-        "Salir..",
-        "Esta seguro que quiere salir?\nSe perdera la informacion no guardada.",
-        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-        if answer == QtWidgets.QMessageBox.Yes:
-            app.quit()
-        else:
-            event.ignore()
+        self.salesbutton.setText(_translate("MainWindow", "Ventas"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-#    MainWindow = QtWidgets.QMainWindow()
-#    MainWindow.setQuitOnLastWindowClosed(True)
-    MainWindow = MainWindow()
-#    ui = Ui_MainWindow()
-#    ui.setupUi(MainWindow)
+    app.setStyle('Fusion')
+    QtGui.QFontDatabase.addApplicationFont("./font/Chalinka/Chalinka-Regular.ttf")
+    QtGui.QFontDatabase.addApplicationFont("./font/Z003-MediumItalic.ttf")
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
