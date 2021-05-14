@@ -12,21 +12,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from db_handler import *
-
 
 class Ui_Productshow(object):
-    def __init__(self, value):
-        self.value = value
-
     def setupUi(self, Productshow):
         self.Productshow = Productshow
         Productshow.setObjectName("Productshow")
-        Productshow.resize(987, 591)
+        Productshow.resize(1024, 668)
         Productshow.setStyleSheet("background-color: rgba(251, 193, 193, 158);")
         self.centralwidget = QtWidgets.QWidget(Productshow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
@@ -34,7 +31,7 @@ class Ui_Productshow(object):
         self.show_prices.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.show_prices.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.show_prices.setObjectName("show_prices")
-        self.show_prices.setColumnCount(2)
+        self.show_prices.setColumnCount(3)
         self.show_prices.setRowCount(0)
         self.show_prices.setStyleSheet("background-image: url(./imagenes/sophia_trans.png);\n"
 "background-repeat: no-repeat;\n"
@@ -42,8 +39,9 @@ class Ui_Productshow(object):
 "background-color:rgb(255, 255, 255)")
         self.show_prices.horizontalHeader().setStyleSheet("background-color: rgb(255,255,255)")
         self.show_prices.verticalHeader().setStyleSheet("background-image: url(./imagenes/headerv.png)")
-        self.show_prices.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
         self.show_prices.horizontalHeader().setSectionResizeMode(1,QHeaderView.Stretch)
+        self.show_prices.horizontalHeader().setSectionResizeMode(2,QHeaderView.Stretch)
+        #self.show_prices.horizontalHeader().setSectionResizeMode(,QHeaderView.Stretch)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setPointSize(15)
@@ -54,21 +52,80 @@ class Ui_Productshow(object):
         font.setPointSize(15)
         item.setFont(font)
         self.show_prices.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        item.setFont(font)
+        self.show_prices.setHorizontalHeaderItem(2, item)
         self.verticalLayout.addWidget(self.show_prices)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.sell_button = QtWidgets.QPushButton(self.centralwidget)
+        self.sell_button.setMinimumSize(QtCore.QSize(0, 50))
+        font = QtGui.QFont()
+        font.setFamily("Chilanka")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.sell_button.setFont(font)
+        self.sell_button.setStyleSheet("background-color: rgb(173, 127, 168);")
+        self.sell_button.setObjectName("sell_button")
+        self.horizontalLayout_2.addWidget(self.sell_button)
+        self.quantity = QtWidgets.QSpinBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.quantity.sizePolicy().hasHeightForWidth())
+        self.quantity.setSizePolicy(sizePolicy)
+        self.quantity.setMinimumSize(QtCore.QSize(80, 51))
+        font = QtGui.QFont()
+        font.setPointSize(26)
+        font.setBold(False)
+        font.setWeight(50)
+        self.quantity.setFont(font)
+        self.quantity.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.quantity.setStyleSheet("background-color: rgb(173, 127, 168);")
+        self.quantity.setWrapping(False)
+        self.quantity.setAlignment(QtCore.Qt.AlignCenter)
+        self.quantity.setMinimum(0)
+        self.quantity.setMaximum(999)
+        self.quantity.setProperty("value", 0)
+        self.quantity.setDisplayIntegerBase(10)
+        self.quantity.setObjectName("quantity")
+        self.horizontalLayout_2.addWidget(self.quantity)
+        self.retired_button = QtWidgets.QPushButton(self.centralwidget)
+        self.retired_button.setMinimumSize(QtCore.QSize(0, 50))
+        font = QtGui.QFont()
+        font.setFamily("Chilanka")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.retired_button.setFont(font)
+        self.retired_button.setStyleSheet("background-color: rgb(173, 127, 168);")
+        self.retired_button.setObjectName("retired_button")
+        self.horizontalLayout_2.addWidget(self.retired_button)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.close_button = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.close_button.sizePolicy().hasHeightForWidth())
         self.close_button.setSizePolicy(sizePolicy)
-        self.close_button.setMinimumSize(QtCore.QSize(0, 43))
+        self.close_button.setMinimumSize(QtCore.QSize(0, 50))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setFamily("Chilanka")
+        font.setPointSize(17)
+        font.setBold(True)
+        font.setWeight(75)
         self.close_button.setFont(font)
         self.close_button.setStyleSheet("background-color: rgb(173, 127, 168);")
         self.close_button.setObjectName("close_button")
-        self.verticalLayout.addWidget(self.close_button)
-        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout.addWidget(self.close_button)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.verticalLayout_3.addLayout(self.verticalLayout_2)
         Productshow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Productshow)
         self.statusbar.setObjectName("statusbar")
@@ -76,7 +133,6 @@ class Ui_Productshow(object):
 
         self.retranslateUi(Productshow)
         QtCore.QMetaObject.connectSlotsByName(Productshow)
-
 
     def retranslateUi(self, Productshow):
         _translate = QtCore.QCoreApplication.translate
@@ -86,39 +142,19 @@ class Ui_Productshow(object):
         item.setText(_translate("Productshow", "Nombre"))
         item = self.show_prices.horizontalHeaderItem(1)
         item.setText(_translate("Productshow", "Precio"))
+        item = self.show_prices.horizontalHeaderItem(2)
+        item.setText(_translate("Productshow", "Vendida"))
+        self.sell_button.setText(_translate("Productshow", "Vendida"))
+        self.retired_button.setText(_translate("Productshow", "Retirada"))
         self.close_button.setText(_translate("Productshow", "Cerrar"))
-
-        self.send_data_to_table()
-
-
-
-        # Activation for close_button
-        self.close_button.clicked.connect(self.close_button_clicked)
-
-    def close_button_clicked(self):
-        self.Productshow.close()
-
-    def send_data_to_table(self):
-        product = show_product(self.value,0)
-        self.show_prices.setRowCount(0)
-        for row_number, row_data, in enumerate(product):
-            self.show_prices.insertRow(row_number)
-            for column_number, data in enumerate(row_data):
-                item = QTableWidgetItem(str(data))
-                item.setTextAlignment(Qt.AlignCenter)
-                font = QtGui.QFont()
-                font.setPointSize(18)
-                item.setFont(font)
-                self.show_prices.setItem(row_number,column_number,item)
-        self.show_prices.resizeColumnsToContents()            
-
-
-
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
+    QtGui.QFontDatabase.addApplicationFont("./font/Chalinka/Chalinka-Regular.ttf")
+    QtGui.QFontDatabase.addApplicationFont("./font/Z003-MediumItalic.ttf")
     Productshow = QtWidgets.QMainWindow()
     ui = Ui_Productshow()
     ui.setupUi(Productshow)
